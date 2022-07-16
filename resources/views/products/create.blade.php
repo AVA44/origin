@@ -31,5 +31,6 @@
         <label for="form-content1">画像</label>
         <input id="form-content1" type="text" name="画像">
     </div>
+    test
 </form>
 @endsection
