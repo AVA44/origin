@@ -30,7 +30,7 @@
         <td>う</td>
         <td>を</td>
         <td>る</td>
-        <td>編集リンク</td>
+        <td><a href="inventory/{inventory}/edit">編集</a></td>
     </tr>
     <tr>
         <td>ー</td>
@@ -40,7 +40,7 @@
         <td>て</td>
         <td>そ</td>
         <td>う</td>
-        <td>編集リンク</td>
+        <td><a href="inventory/{inventory}/edit">編集</a></td>
     </tr>
     <tr>
         <td>に</td>
@@ -50,7 +50,7 @@
         <td>る</td>
         <td>！</td>
         <td>！</td>
-        <td>編集リンク</td>
+        <td><a href="inventory/{inventory}/edit">編集</a></td>
     </tr>
 </table>
 @endsection

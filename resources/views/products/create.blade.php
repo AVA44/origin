@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-@endsection
+<form>
     @csrf
     <div class="form-contents">
         <label for="form-content1">商品名</label>
@@ -9,11 +9,16 @@
     </div>
     <div class="form-contents">
         <label for="form-content1">賞味期限</label>
-        <input id="form-content1" type="text" name="賞味期限">
+        <input id="form-content1" type="date" name="賞味期限">
     </div>
     <div class="form-contents">
         <label for="form-content1">ジャンル</label>
-        <input id="form-content1" type="text" name="ジャンル">
+        <select>
+            <option>ミドルボックス</option>
+            <option>ゆらゆらボックス</option>
+            <option>コンテナボックス</option>
+            <option>六角ボックス</option>
+        </select>
     </div>
     <div class="form-contents">
         <label for="form-content1">在庫</label>
@@ -29,8 +34,7 @@
     </div>
     <div class="form-contents">
         <label for="form-content1">画像</label>
-        <input id="form-content1" type="text" name="画像">
+        <input id="form-content1" type="file" name="画像">
     </div>
-    test
 </form>
 @endsection
