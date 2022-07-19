@@ -19,38 +19,27 @@
         <th>ジャンル</th>
         <th>在庫</th>
         <th>入荷時個数</th>
+        <th>単価</th>
         <th>画像url</th>
+        <th>登録日</th>
+        <th>最終編集日</th>
         <th></th>
     </tr>
+    @foreach($inventories as $inventory)
     <tr>
-        <td>じ</td>
-        <td>ょ</td>
-        <td>う</td>
-        <td>ほ</td>
-        <td>う</td>
-        <td>を</td>
-        <td>る</td>
-        <td><a href="inventory/{inventory}/edit">編集</a></td>
+        <td>{{ $inventory->id }}</td>
+        <td>{{ $inventory->name }}</td>
+        <td>{{ $inventory->date }}</td>
+        <td>{{ $inventory->category }}</td>
+        <td>{{ $inventory->stock }}</td>
+        <td>{{ $inventory->purchase }}</td>
+        <td>{{ $inventory->unit_price }}</td>
+        <td>{{ $inventory->image_url }}</td>
+        <td>{{ $inventory->created_at }}</td>
+        <td>{{ $inventory->updated_at }}</td>
+        <td><a href="inventory/{{ $inventory->id}}/edit">編集</a></td>
     </tr>
-    <tr>
-        <td>ー</td>
-        <td>ぷ</td>
-        <td>さ</td>
-        <td>せ</td>
-        <td>て</td>
-        <td>そ</td>
-        <td>う</td>
-        <td><a href="inventory/{inventory}/edit">編集</a></td>
-    </tr>
-    <tr>
-        <td>に</td>
-        <td>ゅ</td>
-        <td>う</td>
-        <td>す</td>
-        <td>る</td>
-        <td>！</td>
-        <td>！</td>
-        <td><a href="inventory/{inventory}/edit">編集</a></td>
-    </tr>
+    @endforeach
+    
 </table>
 @endsection
