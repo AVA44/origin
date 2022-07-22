@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Inventory;
+use Illuminate\Http\Request;
+use Session;
 
 class ProductController extends Controller
 {
@@ -26,7 +27,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $inventory = new Inventory();
+        
+        return view('products.create', compact('inventory'));
     }
 
     /**
@@ -37,7 +40,40 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+        'name' => 'required|max:40',
+        'date' => 'required',
+        'category' => 'required|max:16',
+        'stock' => 'required',
+        'purchase' => 'required',
+        'unit_price' => 'required',
+        'image_url' => 'required',
+        ]);
         
+        $inventory = new Inventory();
+        
+        $inventory->name = $request->input('name');
+        $inventory->date = $request->input('date');
+        $inventory->category= $request->input('category');
+        $inventory->stock = $request->input('stock');
+        $inventory->purchase = $request->input('purchase');
+        $inventory->unit_price = $request->input('unit_price');
+        $inventory->image_url = $request->input('image_url');
+        
+        // $inventory->create([
+        //     'name' => $request->input('name'),
+        //     'date' => $request->input('date'),
+        //     'category' => $request->input('date'),
+        //     'stock' => $request->input('date'),
+        //     'purchase' => $request->input('date'),
+        //     'unit_price' => $request->input('date'),
+        //     'image_url' => $request->input('date'),
+        //     'delete_flag' => 0
+        //     ]);
+        
+        $inventory->save();
+        
+        return redirect()->route('inventory.index');
     }
 
     /**
@@ -69,9 +105,26 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Inventory $inventory)
     {
-        //
+        // $file = $request->image_url;
+        // $fileData = file_get_contents($file->getRealPath());
+        // $fileName = $file->getClientOriginalName();
+        // Session::put('file_date', $fileData);
+        // Session::put('file_name', $fileName);
+        
+        $inventory->name = $request->input('name');
+        $inventory->date = $request->input('date');
+        $inventory->category= $request->input('category');
+        $inventory->stock = $request->input('stock');
+        $inventory->purchase = $request->input('purchase');
+        $inventory->unit_price = $request->input('unit_price');
+        $inventory->image_url = $request->input('image_url');
+        $inventory->delete_flag = 0;
+        
+        $inventory->update();
+        
+        return redirect()->route('inventory.index');
     }
 
     /**
@@ -80,8 +133,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $inventory = new Inventory();
+        $inventory->delete_flag = $request->input('delete_flag');
+        
+        $inventory->update();
     }
 }

@@ -21,24 +21,26 @@
         <th>入荷時個数</th>
         <th>単価</th>
         <th>画像url</th>
+        <th>編集・削除</th>
         <th>登録日</th>
         <th>最終編集日</th>
-        <th></th>
     </tr>
     @foreach($inventories as $inventory)
-    <tr>
-        <td>{{ $inventory->id }}</td>
-        <td>{{ $inventory->name }}</td>
-        <td>{{ $inventory->date }}</td>
-        <td>{{ $inventory->category }}</td>
-        <td>{{ $inventory->stock }}</td>
-        <td>{{ $inventory->purchase }}</td>
-        <td>{{ $inventory->unit_price }}</td>
-        <td>{{ $inventory->image_url }}</td>
-        <td>{{ $inventory->created_at }}</td>
-        <td>{{ $inventory->updated_at }}</td>
-        <td><a href="inventory/{{ $inventory->id}}/edit">編集</a></td>
-    </tr>
+        @if($inventory->delete_flag == 0)
+            <tr>
+                <td>{{ $inventory->id }}</td>
+                <td>{{ $inventory->name }}</td>
+                <td>{{ $inventory->date }}</td>
+                <td>{{ $inventory->category }}</td>
+                <td>{{ $inventory->stock }}</td>
+                <td>{{ $inventory->purchase }}</td>
+                <td>{{ $inventory->unit_price }}</td>
+                <td>{{ $inventory->image_url }}</td>
+                <td><a href="inventory/{{ $inventory->id}}/edit">編集</a></td>
+                <td>{{ $inventory->created_at }}</td>
+                <td>{{ $inventory->updated_at }}</td>
+            </tr>
+        @endif
     @endforeach
     
 </table>
