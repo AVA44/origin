@@ -12,7 +12,7 @@
      </div>
  @endif
 
-<form method="post" action="/inventory">
+<form method="post" action="/inventory" enctype="multipart/form-data">
     @csrf
     <div class="form-contents">
         <label for="form-content1">商品名</label>
@@ -20,12 +20,12 @@
     </div>
     <div class="form-contents">
         <label for="form-content2">賞味期限</label>
-        <input id="form-content2" type="date" name="date" value="{{ old('date') }}">
+        <input id="form-content2" type="date" name="expired_at" value="{{ old('expired_at') }}">
     </div>
     <div class="form-contents">
         <label for="form-content3">ジャンル</label>
         <select id="form-content3" name="category">
-            <option value="">カテゴリを選択</option>
+            <option value="">カテゴリを選択(デフォルトは'バラ')</option>
             <option value="ミドルボックス" @if("ミドルボックス" === old('category')) selected @endif>ミドルボックス</option>
             <option value="ゆらゆらボックス" @if("ゆらゆらボックス" === old('category')) selected @endif>ゆらゆらボックス</option>
             <option value="コンテナボックス" @if("コンテナボックス" === old('category')) selected @endif>コンテナボックス</option>
@@ -46,7 +46,7 @@
     </div>
     <div class="form-contents">
         <label for="form-content7">画像</label>
-        <input id="form-content7" type="file" name="image_url" value="{{ old('image_url') }}">
+        <input id="form-content7" type="file" name="image_url">
     </div>
     <div class="form-contents">
         <input type="submit" value="商品作成">

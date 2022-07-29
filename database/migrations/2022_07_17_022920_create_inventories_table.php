@@ -16,15 +16,15 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 40);
-            $table->date('date');
-            $table->string('category', 16);
+            $table->date('expired_at');
+            $table->string('category', 16)->default('バラ');
             $table->integer('purchase');
             $table->integer('stock');
             $table->integer('unit_price');
-            $table->text('image_url');
+            $table->text('image_url')->default('画像なし');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
-            $table->tinyInteger('delete_flag');
+            $table->tinyInteger('delete_flag')->default(0);
         });
     }
 

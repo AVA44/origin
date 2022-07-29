@@ -30,7 +30,7 @@
             <tr>
                 <td>{{ $inventory->id }}</td>
                 <td>{{ $inventory->name }}</td>
-                <td>{{ $inventory->date }}</td>
+                <td>{{ $inventory->expired_at }}</td>
                 <td>{{ $inventory->category }}</td>
                 <td>{{ $inventory->stock }}</td>
                 <td>{{ $inventory->purchase }}</td>
@@ -39,6 +39,7 @@
                 <td><a href="inventory/{{ $inventory->id}}/edit">編集</a></td>
                 <td>{{ $inventory->created_at }}</td>
                 <td>{{ $inventory->updated_at }}</td>
+                <td>{{ $inventory->delete_flag }}</td>
             </tr>
         @endif
     @endforeach

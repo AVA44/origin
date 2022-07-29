@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Inventory;
 use Illuminate\Http\Request;
 use Session;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -40,25 +41,46 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // $file = $request->input('image_url');
+        
+        // // バケットの`image`フォルダへアップロードする
+        // $path = Storage::disk('s3')->putFile('image', $file, 'public');
+        // // アップロードした画像のフルパスを取得
+        // $inventory->image_url = Storage::disk('s3')->url($path);
+        
+        
+        
         $request->validate([
         'name' => 'required|max:40',
-        'date' => 'required',
-        'category' => 'required|max:16',
+        'expired_at' => 'required',
         'stock' => 'required',
         'purchase' => 'required',
         'unit_price' => 'required',
-        'image_url' => 'required',
         ]);
         
         $inventory = new Inventory();
         
-        $inventory->name = $request->input('name');
-        $inventory->date = $request->input('date');
-        $inventory->category= $request->input('category');
-        $inventory->stock = $request->input('stock');
-        $inventory->purchase = $request->input('purchase');
-        $inventory->unit_price = $request->input('unit_price');
-        $inventory->image_url = $request->input('image_url');
+        if($request->input('name')) {
+            $inventory->name = $request->input('name');
+        }
+        if($request->input('expired_at')) {
+            $inventory->expired_at = $request->input('expired_at');
+        }
+        if($request->input('category')) {
+            $inventory->category = $request->input('category');
+        }
+        if($request->input('stock')) {
+            $inventory->stock = $request->input('stock');
+        }
+        if($request->input('purchase')) {
+            $inventory->purchase = $request->input('purchase');
+        }
+        if($request->input('unit_price')) {
+            $inventory->unit_price = $request->input('unit_price');
+        }
+        if($request->input('image_url')) {
+            $inventory->image_url = $request->input('image_url');
+        }
         
         // $inventory->create([
         //     'name' => $request->input('name'),
@@ -68,7 +90,6 @@ class ProductController extends Controller
         //     'purchase' => $request->input('date'),
         //     'unit_price' => $request->input('date'),
         //     'image_url' => $request->input('date'),
-        //     'delete_flag' => 0
         //     ]);
         
         $inventory->save();
@@ -95,6 +116,12 @@ class ProductController extends Controller
      */
     public function edit(Inventory $inventory)
     {
+        // $file = $request->image_url;
+        // $fileData = file_get_contents($file->getRealPath());
+        // $fileName = $file->getClientOriginalName();
+        // Session::put('file_date', $fileData);
+        // Session::put('file_name', $fileName); 
+        
         return view('products.edit', compact('inventory'));
     }
 
@@ -107,24 +134,42 @@ class ProductController extends Controller
      */
     public function update(Request $request, Inventory $inventory)
     {
-        // $file = $request->image_url;
-        // $fileData = file_get_contents($file->getRealPath());
-        // $fileName = $file->getClientOriginalName();
-        // Session::put('file_date', $fileData);
-        // Session::put('file_name', $fileName);
+        $request->validate([
+        'name' => 'required|max:40',
+        'expired_at' => 'required',
+        'stock' => 'required',
+        'purchase' => 'required',
+        'unit_price' => 'required',
+        ]);
         
-        $inventory->name = $request->input('name');
-        $inventory->date = $request->input('date');
-        $inventory->category= $request->input('category');
-        $inventory->stock = $request->input('stock');
-        $inventory->purchase = $request->input('purchase');
-        $inventory->unit_price = $request->input('unit_price');
-        $inventory->image_url = $request->input('image_url');
-        $inventory->delete_flag = 0;
+        if($request->input('name')) {
+            $inventory->name = $request->input('name');
+        }
+        if($request->input('expired_at')) {
+            $inventory->expired_at = $request->input('expired_at');
+        }
+        if($request->input('category')) {
+            $inventory->category = $request->input('category');
+        }
+        if($request->input('stock')) {
+            $inventory->stock = $request->input('stock');
+        }
+        if($request->input('purchase')) {
+            $inventory->purchase = $request->input('purchase');
+        }
+        if($request->input('unit_price')) {
+            $inventory->unit_price = $request->input('unit_price');
+        }
+        if($request->input('image_url')) {
+            $inventory->image_url = $request->input('image_url');
+        }
         
         $inventory->update();
         
         return redirect()->route('inventory.index');
+        
+        //requestに値が入っているものだけ更新 if文
+        //必須なものはバリデーション
     }
 
     /**
@@ -133,11 +178,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $inventory = new Inventory();
-        $inventory->delete_flag = $request->input('delete_flag');
+        $inventory = Inventory::where('id', $id)->first();
+        $inventory->delete_flag = 1;
         
-        $inventory->update();
+        $inventory->save();
+        
+        return redirect()->route('inventory.index');
     }
 }
