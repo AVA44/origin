@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Inventory;
+use App\Category;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Storage;
@@ -29,8 +30,9 @@ class ProductController extends Controller
     public function create()
     {
         $inventory = new Inventory();
+        $categories = Category::all();
         
-        return view('products.create', compact('inventory'));
+        return view('products.create', compact('categories'));
     }
 
     /**

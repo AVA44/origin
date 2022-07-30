@@ -25,11 +25,10 @@
     <div class="form-contents">
         <label for="form-content3">ジャンル</label>
         <select id="form-content3" name="category">
-            <option value="">カテゴリを選択(デフォルトは'バラ')</option>
-            <option value="ミドルボックス" @if("ミドルボックス" === old('category')) selected @endif>ミドルボックス</option>
-            <option value="ゆらゆらボックス" @if("ゆらゆらボックス" === old('category')) selected @endif>ゆらゆらボックス</option>
-            <option value="コンテナボックス" @if("コンテナボックス" === old('category')) selected @endif>コンテナボックス</option>
-            <option value="六角ボックス" @if("六角ボックス" === old('category')) selected @endif>六角ボックス</option>
+            <option value="">カテゴリを選択</option>
+            @foreach($categories as $category)
+            <option name=category @if(old('category') == $category->category) selected  @endif> {{ $category->category }} </option>
+            @endforeach
         </select>
     </div>
     <div class="form-contents">
