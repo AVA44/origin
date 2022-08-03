@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('inventory', 'ProductController');
+Route::get('inventory/search', 'ProductController@search')->name('inventory.search');

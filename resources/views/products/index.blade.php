@@ -1,16 +1,21 @@
 @extends('layout.app')
 
 @section('content')
-<form class="search">
+<form action="/inventory" class="search">
     @csrf
     <input type="text" name="search">
     <input type="submit" value ="検索" for="search">
+    
+    <select class="sort"></select>
 </form>
 
 <div class="create">
     <a href="inventory/create">商品を追加する</a>
 </div>
 
+@if($search)
+<h3>”{{ $search }}” の検索結果</h3>
+@endif
 <table border='1'>
     <tr>
         <th>id</th>

@@ -7,6 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -15,11 +16,26 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $inventories = Inventory::all();
         
-        return view('products.index', compact('inventories'));
+        if ($request->search !== null) {
+           $search = rtrim($request->search);
+            if (is_int($request->search)) {
+                $search = (string)$search;
+            }
+            $inventories = Inventory::where('name', 'like', "%{$search}%")
+                            ->orwhere('expired_at', 'like', "%{$search}%")
+                            ->orwhere('category', 'like', "%{$search}%")
+                            ->orwhere('stock', 'like', "%{$search}%")
+                            ->orwhere('purchase', 'like', "%{$search}%")
+                            ->orwhere('unit_price', "{$search}")->paginate(20);
+        } else {
+            $inventories = Inventory::paginate(20);
+            $search = "";
+        }
+        
+        return view('products.index', compact('inventories', 'search'));
     }
 
     /**
@@ -29,7 +45,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $inventory = new Inventory();
+        // $inventory = new Inventory();
         $categories = Category::all();
         
         return view('products.create', compact('categories'));
@@ -43,13 +59,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $file = $request->input('image_url');
+        $file = $request->file('image_url');
         
-        // // バケットの`image`フォルダへアップロードする
+        // バケットの`image`フォルダへアップロードする
         // $path = Storage::disk('s3')->putFile('image', $file, 'public');
         // // アップロードした画像のフルパスを取得
         // $inventory->image_url = Storage::disk('s3')->url($path);
-        
+        // $image = $file->store('public/products');
+        // $inventory->image_url = basename($image);
         
         
         $request->validate([
@@ -80,9 +97,9 @@ class ProductController extends Controller
         if($request->input('unit_price')) {
             $inventory->unit_price = $request->input('unit_price');
         }
-        if($request->input('image_url')) {
-            $inventory->image_url = $request->input('image_url');
-        }
+        // if($request->input('image_url')) {
+        //     $inventory->image_url = $request->input('image_url');
+        // }
         
         // $inventory->create([
         //     'name' => $request->input('name'),

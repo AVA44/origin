@@ -44,12 +44,25 @@
         <input id="form-content6" type="text" name="unit_price" value="{{ old('unit_price') }}">
     </div>
     <div class="form-contents">
-        <label for="form-content7">画像</label>
-        <input id="form-content7" type="file" name="image_url">
+        <label for="product-image">画像</label>
+        <input id="product-image" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
+              <img src="#" id="product-image-preview">
     </div>
     <div class="form-contents">
         <input type="submit" value="商品作成">
     </div>
 </form>
+
+<script type="text/javascript">
+     function handleImage(image) {
+          let reader = new FileReader();
+          reader.onload = function() {
+              let imagePreview = document.getElementById("product-image-preview");
+              imagePreview.src = reader.result;
+          }
+          console.log(image);
+          reader.readAsDataURL(image[0]);
+      }
+ </script>
 
 @endsection
