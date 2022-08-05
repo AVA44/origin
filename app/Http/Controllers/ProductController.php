@@ -19,23 +19,60 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         
-        if ($request->search !== null) {
+        $sorted = "";
+        
+        //検索機能
+        if($request->search != null) {
+            
            $search = rtrim($request->search);
-            if (is_int($request->search)) {
+            if(is_int($request->search)) {
                 $search = (string)$search;
             }
-            $inventories = Inventory::where('name', 'like', "%{$search}%")
+            
+            if($request->sort != null) {
+                $slice = explode(" ", $request->sort);
+                $sort_query[$slice[0]] = $slice[1];
+                $sorted = $request->sort;
+                
+                $inventories = Inventory::where('name', 'like', "%{$search}%")
+                            ->orwhere('expired_at', 'like', "%{$search}%")
+                            ->orwhere('category', 'like', "%{$search}%")
+                            ->orwhere('stock', 'like', "%{$search}%")
+                            ->orwhere('purchase', 'like', "%{$search}%")
+                            ->orwhere('unit_price', "{$search}")->sortable($sort_query)->paginate(20);
+            } else {
+                $inventories = Inventory::where('name', 'like', "%{$search}%")
                             ->orwhere('expired_at', 'like', "%{$search}%")
                             ->orwhere('category', 'like', "%{$search}%")
                             ->orwhere('stock', 'like', "%{$search}%")
                             ->orwhere('purchase', 'like', "%{$search}%")
                             ->orwhere('unit_price', "{$search}")->paginate(20);
-        } else {
-            $inventories = Inventory::paginate(20);
-            $search = "";
+            }
+            
+        } elseif($request->search == null) {
+            
+            if($request->sort != null) {
+                $slice = explode(" ", $request->sort);
+                $sort_query[$slice[0]] = $slice[1];
+                $sorted = $request->sort;
+                $inventories = Inventory::sortable($sort_query)->paginate(20);
+                $search = "";
+            } else {
+                $inventories = Inventory::paginate(20);
+                $search = "";
+            }
         }
         
-        return view('products.index', compact('inventories', 'search'));
+        $sort_values = [
+            'expired_at asc' => '期限が早い順',
+            'expired_at desc' => '期限が遅い順',
+            'stock asc' => '在庫が少ない順',
+            'stock desc' => '在庫が多い順',
+            'unit_price asc' => '単価が安い順',
+            'unit_price desc' => '単価が高い順'
+            ];
+        
+        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted'));
     }
 
     /**
@@ -72,6 +109,7 @@ class ProductController extends Controller
         $request->validate([
         'name' => 'required|max:40',
         'expired_at' => 'required',
+        'category' => 'required',
         'stock' => 'required',
         'purchase' => 'required',
         'unit_price' => 'required',
@@ -153,13 +191,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Inventory $inventory)
     {
-        $request->validate([
-        'name' => 'required|max:40',
-        'expired_at' => 'required',
-        'stock' => 'required',
-        'purchase' => 'required',
-        'unit_price' => 'required',
-        ]);
         
         if($request->input('name')) {
             $inventory->name = $request->input('name');

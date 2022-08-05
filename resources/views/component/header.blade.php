@@ -7,10 +7,10 @@
         <div class="cancel">
             <a href="/inventory">キャンセル</a>
         </div>
-        @elseif(Request::is('inventory/{inventory}/edit'))
+        @elseif(Request::is('inventory/*/edit'))
         <h3>Inventory Edit</h3>
         <div class="cancel">
-            <a href="/inventory">キャンセル</a>
+            <a href="/inventory">一覧に戻る</a>
         </div>
         @endif
     </div>

@@ -47,8 +47,8 @@
     </div>
     <div class="form-contents">
         <label for="form-content7">画像</label>
-        <input id="form-content7" type="files" name="image_url" {{--value="@if(Session::get('file_data')) Session::get('file_data') @endif"--}}>
-        <img src="{{ $user->image }}">
+        <input id="form-content7" type="file" name="image_url" {{--value="@if(Session::get('file_data')) Session::get('file_data') @endif"--}}>
+        {{-- <img src="{{ $user->image }}"> --}}
     </div>
     <div class="form-contents">
         <input type="submit" value="編集">
