@@ -12,8 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    
+    $search = "";
+    return view('products.index');
 });
 
 Route::resource('inventory', 'ProductController');
 Route::get('inventory/search', 'ProductController@search')->name('inventory.search');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

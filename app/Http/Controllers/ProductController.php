@@ -11,6 +11,11 @@ use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -135,19 +140,13 @@ class ProductController extends Controller
         if($request->input('unit_price')) {
             $inventory->unit_price = $request->input('unit_price');
         }
-        // if($request->input('image_url')) {
-        //     $inventory->image_url = $request->input('image_url');
-        // }
         
-        // $inventory->create([
-        //     'name' => $request->input('name'),
-        //     'date' => $request->input('date'),
-        //     'category' => $request->input('date'),
-        //     'stock' => $request->input('date'),
-        //     'purchase' => $request->input('date'),
-        //     'unit_price' => $request->input('date'),
-        //     'image_url' => $request->input('date'),
-        //     ]);
+        if ($request->file('image') !== null) {
+            $image = $request->file('image')->store('public/products');
+            $inventory->image_url = basename($image);
+        } else {
+            $inventory->image_url = '';
+        }
         
         $inventory->save();
         

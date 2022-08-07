@@ -45,7 +45,7 @@
     </div>
     <div class="form-contents">
         <label for="product-image">画像</label>
-        <input id="product-image" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
+        <input id="product-image" type="file" name="image" onChange="handleImage(this.files)" style="display: none;">
               <img src="#" id="product-image-preview">
     </div>
     <div class="form-contents">
