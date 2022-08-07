@@ -142,8 +142,7 @@ class ProductController extends Controller
         }
         
         if ($request->file('image') !== null) {
-            $image = $request->file('image')->store('public/products');
-            $inventory->image_url = basename($image);
+            $inventory->image_url = Storage::disk('s3')->putFile('public/products', $request->file('image'), 'public');
         } else {
             $inventory->image_url = '';
         }
