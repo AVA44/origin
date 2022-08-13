@@ -21,16 +21,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- 個別のCSS読み込み --}}
-    @yield('css')
+    {{-- <link rel="stylesheet" href="{{ asset('css/inventory.css') }}"> --}}
 </head>
 <body>
-    
-    {{-- ヘッダー読み込み --}}
-    @component('component.header')
-    @endcomponent
 
     <div id="app">
-        <main class="py-4">
+        <main class="main py-4">
             {{-- コンテンツ部分読み込み --}}
             @yield('content')
         </main>

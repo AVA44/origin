@@ -101,7 +101,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('image_url');
+        // $file = $request->file('image_url');
         
         // バケットの`image`フォルダへアップロードする
         // $path = Storage::disk('s3')->putFile('image', $file, 'public');
@@ -141,8 +141,8 @@ class ProductController extends Controller
             $inventory->unit_price = $request->input('unit_price');
         }
         
-        if ($request->file('image') !== null) {
-            $inventory->image_url = Storage::disk('s3')->putFile('public/products', $request->file('image'), 'public');
+        if ($request->file('image_url') !== null) {
+            $inventory->image_url = Storage::disk('s3')->putFile('public/products', $request->file('image_url'), 'public');
         } else {
             $inventory->image_url = '';
         }
@@ -175,7 +175,7 @@ class ProductController extends Controller
         // $fileData = file_get_contents($file->getRealPath());
         // $fileName = $file->getClientOriginalName();
         // Session::put('file_date', $fileData);
-        // Session::put('file_name', $fileName); 
+        // Session::put('file_name', $fileName);
         
         return view('products.edit', compact('inventory'));
     }
@@ -208,8 +208,10 @@ class ProductController extends Controller
         if($request->input('unit_price')) {
             $inventory->unit_price = $request->input('unit_price');
         }
-        if($request->input('image_url')) {
-            $inventory->image_url = $request->input('image_url');
+        if ($request->file('image_url') !== null) {
+            $inventory->image_url = Storage::disk('s3')->putFile('public/products', $request->file('image_url'), 'public');
+        } else {
+            $inventory->image_url = '';
         }
         
         $inventory->update();

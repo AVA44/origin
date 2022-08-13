@@ -1,6 +1,9 @@
 @extends('layout.app')
 
+
 @section('content')
+
+@include('component.header', ['header_title' => 'edit'])
 
 @if ($errors->any())
      <div class="alert alert-danger">
@@ -12,7 +15,7 @@
      </div>
  @endif
 
-<form method="POST" action="{{ url('/inventory', $inventory->id) }}">
+<form method="POST" action="{{ url('/inventory', $inventory->id) }}" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="_method" value="PUT">
     <div class="form-contents">
@@ -45,11 +48,24 @@
         <label for="form-content6">単価</label>
         <input id="form-content6" type="text" name="unit_price" placeholder="{{ old('unit_price') == '' ? $inventory->unit_price : old('unit_price') }}">
     </div>
+    
     <div class="form-contents">
-        <label for="form-content7">画像</label>
-        <input id="form-content7" type="file" name="image_url" {{--value="@if(Session::get('file_data')) Session::get('file_data') @endif"--}}>
-        {{-- <img src="{{ $user->image }}"> --}}
+        <label for="product-image">画像</label>
+        {{--@if($inventory->image_url !== "画像なし")--}}
+            <input id="product-image" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
+            {{--
+            <img src="{{ Storage::disk('s3')->url($inventory->image_url) }}">
+                "変更後
+                →→→→→→" 
+            <img src="#" id="product-image-preview" alt="変更なし">
+        @else
+            <input id="product-image" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
+            <img src="#" id="product-image-preview" alt="画像無し">
+            {{ "アンパンマン" }}
+        @endif
+            --}}
     </div>
+    
     <div class="form-contents">
         <input type="submit" value="編集">
     </div>
@@ -58,6 +74,21 @@
     @csrf
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" value="景品削除">
+    <div class="cancel">
+        <a href="/inventory">キャンセル</a>
+    </div>
 </form>
+
+<script type="text/javascript">
+     function handleImage(image) {
+          let reader = new FileReader();
+          reader.onload = function() {
+              let imagePreview = document.getElementById("product-image-preview");
+              imagePreview.src = reader.result;
+          }
+          console.log(image);
+          reader.readAsDataURL(image[0]);
+      }
+ </script>
 
 @endsection

@@ -1,12 +1,18 @@
 @extends('layout.app')
 
+
 @section('content')
+
+@include('component.header', ['header_title' => 'index'])
+
 <form action="/inventory" class="search_sort">
     @csrf
-    <input type="text" name="search" value={{ $search }}>
+    <label for="search">検索：</label>
+    <input class="search" type="text" name="search" value={{ $search }}>
     
-    <select class="search_sort" name="sort">
-        <option value="">並び替え</option>
+    <lable for="sort">並び替え：</lable>
+    <select class="sort" name="sort">
+        <option value=""></option>
         @foreach($sort_values as $sort_key => $sort_value)
             @if($sorted == $sort_key)
             <option value="{{ $sort_key }}" selected>{{ $sort_value }}</option>
@@ -16,7 +22,7 @@
         @endforeach
     </select>
     
-    <input type="submit" value ="表示">
+    <input class="search_sort_button" type="submit" value ="表示">
 </form>
 
 <div class="create">
@@ -54,7 +60,7 @@
                 <td>{{ $inventory->image_url }}</td>
                 <td>{{ $inventory->created_at }}</td>
                 <td>{{ $inventory->updated_at }}</td>
-                <td><a href="inventory/{{ $inventory->id}}/edit">編集</a></td>
+                <td><a href="inventory/{{ $inventory->id }}/edit">編集</a></td>
             </tr>
         @endif
     @endforeach

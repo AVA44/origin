@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+/* index */
+.header-contents {
+    display: flex;
+    justify-content: space-between;
+    
+    width: 98%;
+    margin: 0 auto;
+}
+
+.main {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.search_sort {
+    margin-bottom: 24px;
+}
+
+.search, .sort {
+    width: 12rem;
+    height: 2rem;
+    margin-right: 12px;
+}
+
+.search_sort_button {
+    width: 3rem;
+    height: 2rem;
+}
+
+.create > a {
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+table {
+    text-align: center;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px;
+}
+
+
+/* create */
+.create_container {
+    text-align: right;
+}
+
+.create_container > form {
+    width: fit-content;
+}
+
+/*form > input {*/
+/*    width: ;*/
+/*}*/

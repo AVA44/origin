@@ -1,6 +1,14 @@
 @extends('layout.app')
 
+
 @section('content')
+
+@include('component.auth.header', [
+        'header_title' => 'register',
+        'header_a_href' => '/login',
+        'header_a_title' => 'ログイン'
+         ])
+         
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
