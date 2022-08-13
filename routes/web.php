@@ -23,3 +23,7 @@ Route::get('inventory/search', 'ProductController@search')->name('inventory.sear
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+if (env('APP_ENV') === 'production') {
+      URL::forceScheme('https');
+  }
