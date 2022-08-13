@@ -25,6 +25,7 @@ class ProductController extends Controller
     {
         
         $sorted = "";
+        $search = "";
         
         //検索機能
         if($request->search != null) {
