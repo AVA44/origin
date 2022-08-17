@@ -7,6 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 
 class ProductController extends Controller

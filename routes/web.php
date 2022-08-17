@@ -12,13 +12,10 @@
 */
 
 Route::get('/', function () {
-    
-    $search = "";
-    return view('products.index');
+    return view('auth.login');
 });
 
 Route::resource('inventory', 'ProductController');
-Route::get('inventory/search', 'ProductController@search')->name('inventory.search');
 
 Auth::routes();
 

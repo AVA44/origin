@@ -51,9 +51,8 @@
     
     <div class="form-contents">
         <label for="product-image">画像</label>
-        {{--@if($inventory->image_url !== "画像なし")--}}
+        @if($inventory->image_url !== "画像なし")
             <input id="product-image" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
-            {{--
             <img src="{{ Storage::disk('s3')->url($inventory->image_url) }}">
                 "変更後
                 →→→→→→" 
@@ -63,7 +62,6 @@
             <img src="#" id="product-image-preview" alt="画像無し">
             {{ "アンパンマン" }}
         @endif
-            --}}
     </div>
     
     <div class="form-contents">
