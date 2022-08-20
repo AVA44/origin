@@ -46,14 +46,14 @@ class ProductController extends Controller
                             ->orwhere('category', 'like', "%{$search}%")
                             ->orwhere('stock', 'like', "%{$search}%")
                             ->orwhere('purchase', 'like', "%{$search}%")
-                            ->orwhere('unit_price', "{$search}")->sortable($sort_query)->paginate(20);
+                            ->orwhere('unit_price', "{$search}")->sortable($sort_query)->paginate(5);
             } else {
                 $inventories = Inventory::where('name', 'like', "%{$search}%")
                             ->orwhere('expired_at', 'like', "%{$search}%")
                             ->orwhere('category', 'like', "%{$search}%")
                             ->orwhere('stock', 'like', "%{$search}%")
                             ->orwhere('purchase', 'like', "%{$search}%")
-                            ->orwhere('unit_price', "{$search}")->paginate(20);
+                            ->orwhere('unit_price', "{$search}")->paginate(5);
             }
             
         } elseif($request->search == null) {
@@ -62,10 +62,10 @@ class ProductController extends Controller
                 $slice = explode(" ", $request->sort);
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
-                $inventories = Inventory::sortable($sort_query)->paginate(20);
+                $inventories = Inventory::sortable($sort_query)->paginate(5);
                 $search = "";
             } else {
-                $inventories = Inventory::paginate(20);
+                $inventories = Inventory::paginate(5);
                 $search = "";
             }
         }

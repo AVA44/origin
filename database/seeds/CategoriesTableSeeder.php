@@ -19,7 +19,7 @@ class CategoriesTableSeeder extends Seeder
         foreach($categories as $category) {
             Category::create([
                 'category' => $category
-                ]);
+            ]);
         }
     }
 }

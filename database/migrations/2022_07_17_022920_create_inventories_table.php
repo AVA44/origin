@@ -17,11 +17,11 @@ class CreateInventoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 40);
             $table->date('expired_at');
-            $table->string('category', 16)->default('バラ');
+            $table->string('category', 16);
             $table->integer('purchase');
             $table->integer('stock');
             $table->integer('unit_price');
-            $table->text('image_url')->default('画像なし');
+            $table->text('image_url');
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
             $table->tinyInteger('delete_flag')->default(0);

@@ -1,19 +1,19 @@
 @charset "utf-8";
 
-/* index */
+/* other */
 .header-contents {
     display: flex;
     justify-content: space-between;
-    
     width: 98%;
     margin: 0 auto;
 }
 
 .main {
-    width: 95%;
+    width: 98%;
     margin: 0 auto;
 }
 
+/* index */
 .search_sort {
     margin-bottom: 24px;
 }
@@ -44,16 +44,75 @@ th, td {
     padding: 10px;
 }
 
+.pagenate-button {
+    display: table;
+    margin: 12px auto 0;
+}
 
-/* create */
-.create_container {
+
+/* create & edit */
+.container {
+    margin-left: 0;
+}
+
+.container > form {
+    width: 19rem;
+}
+
+.form-contents:not(.not) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.form-contents > not {
     text-align: right;
 }
 
-.create_container > form {
-    width: fit-content;
+.form-contents > label {
+    display: inline-block;
+    text-align: right;
+    width: 6rem;
+    margin: 0;
 }
 
-/*form > input {*/
-/*    width: ;*/
-/*}*/
+.form-contents > .form-content {
+    display: inline-block;
+    width: 12.8rem;
+}
+
+.image-preview {
+    width: 12.7rem;
+    height: 10.6rem;
+}
+
+.form-contents  p {
+    position: relative;
+    top: 20px;
+    left: 100px;
+    width: 12.7rem;
+    margin: 0;
+    text-align: center;
+}
+
+.buttons {
+    /*position: absolute;*/
+    width: 14rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.edit-buttons {
+    width: 16rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px 0 0 40px;
+}
+
+.buttons > .button {
+    margin-left: 26px;
+}

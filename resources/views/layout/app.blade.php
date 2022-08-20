@@ -21,7 +21,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- 個別のCSS読み込み --}}
-    {{-- <link rel="stylesheet" href="{{ asset('css/inventory.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/inventory.css') }}">
 </head>
 <body>
 
@@ -33,9 +33,10 @@
     </div>
 
     {{-- フッター読み込み --}}
+    {{--
     @component('component.footer')
     @endcomponent
-
+    --}}
     {{-- 個別のjavaScript読み込み --}}
     @yield('javascript-footer')
 

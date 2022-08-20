@@ -33,7 +33,7 @@
 <h3>”{{ $search }}” の検索結果</h3>
 @endif
 @if($sorted)
-<h3>”{{ $sorted }}”</h3>
+<h3>”{{ $sort_values[$sorted] }}”</h3>
 @endif
 <table border='1'>
     <tr>
@@ -43,7 +43,6 @@
         <th>在庫</th>
         <th>入荷時個数</th>
         <th>単価</th>
-        <th>画像url</th>
         <th>登録日</th>
         <th>最終編集日</th>
         <th>編集・削除</th>
@@ -51,19 +50,22 @@
     @foreach($inventories as $inventory)
         @if($inventory->delete_flag == 0)
             <tr>
-                <td>{{ $inventory->name }}</td>
+                @if($inventory->image_url != "")
+                    <td><a href="{{ Storage::disk('s3')->url($inventory->image_url) }}">{{ $inventory->name }}</a></td>
+                @else
+                    <td>{{ $inventory->name }}</td>
+                @endif
                 <td>{{ $inventory->expired_at }}</td>
                 <td>{{ $inventory->category }}</td>
-                <td>{{ $inventory->stock }}</td>
-                <td>{{ $inventory->purchase }}</td>
-                <td>{{ $inventory->unit_price }}</td>
-                <td>{{ $inventory->image_url }}</td>
-                <td>{{ $inventory->created_at }}</td>
-                <td>{{ $inventory->updated_at }}</td>
+                <td>{{ $inventory->stock }}個</td>
+                <td>{{ $inventory->purchase }}個/箱</td>
+                <td>¥{{ $inventory->unit_price }}</td>
+                <td class="not">{{ $inventory->created_at }}</td>
+                <td class="not">{{ $inventory->updated_at }}</td>
                 <td><a href="inventory/{{ $inventory->id }}/edit">編集</a></td>
             </tr>
         @endif
     @endforeach
-    
 </table>
+<div class="pagenate-button">{{ $inventories->links() }}</div>
 @endsection
