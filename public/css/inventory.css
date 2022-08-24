@@ -59,16 +59,16 @@ th, td {
     width: 19rem;
 }
 
-.form-contents:not(.not) {
+.form-contents {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
 }
 
-.form-contents > not {
-    text-align: right;
-}
+/*.form-contents > not {*/
+/*    text-align: right;*/
+/*}*/
 
 .form-contents > label {
     display: inline-block;
@@ -85,15 +85,6 @@ th, td {
 .image-preview {
     width: 12.7rem;
     height: 10.6rem;
-}
-
-.form-contents  p {
-    position: relative;
-    top: 20px;
-    left: 100px;
-    width: 12.7rem;
-    margin: 0;
-    text-align: center;
 }
 
 .buttons {
@@ -115,4 +106,35 @@ th, td {
 
 .buttons > .button {
     margin-left: 26px;
+}
+
+/* edit */
+.image-url {
+    color: blue;
+    text-decoration: underline;
+}
+
+.edit-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*width: 12.8rem;*/
+}
+
+.edit-preview {
+    width: 12.7rem;
+    height: 10.6rem;
+}
+
+.n-image {
+    box-sizing: border-box;
+    padding: 74px 0;
+    border: 1px solid gray;
+    background-color: #afafaf1c;
+}
+
+.form-contents  p {
+    text-align: center;
+    box-sizing: border-box;
+    margin: 8px 0;
 }

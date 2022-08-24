@@ -51,22 +51,21 @@
             <input id="unit-price" class="form-content" type="text" name="unit_price" placeholder="{{ old('unit_price') == '' ? $inventory->unit_price : old('unit_price') }}">
         </div>
         
-        <div class="form-contents not">
-            <label for="image-url">画像：</label>
-            <div classd="form-content">
-                @if($inventory->image_url !== "画像なし")
-                    <input id="image-url" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
-                    <img class="image-preview" src="{{ Storage::disk('s3')->url($inventory->image_url) }}">
-                    <p>
-                        変更後
-                        <br>
-                        ↓↓↓↓↓↓↓↓
-                    </p>
-                    <img class="image-preview" src="#" id="product-image-preview" alt="変更なし">
+        <div class="form-contents">
+            <label for="image-url" class="image-url">画像</label><span>：</span>
+            <div class="form-content edit-image">
+                <input id="image-url" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
+                @if($inventory->image_url != "")
+                <img class="edit-preview" src="{{ Storage::disk('s3')->url($inventory->image_url) }}">
                 @else
-                    <input id="image-url" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
-                    <img src="#" id="product-image-preview" alt="画像無し">
+                <p class="edit-preview n-image">画像無し</p>
                 @endif
+                <p>
+                    ↑↑変更前↑↑
+                    <br>
+                    ↓↓変更後↓↓
+                </p>
+                <img class="edit-preview" src="#" id="product-image-preview">
             </div>
         </div>
         
