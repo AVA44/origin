@@ -5,6 +5,7 @@
 
 @include('component.header', ['header_title' => 'index'])
 
+<div class="overlay"></div>
 <form action="/inventory" class="search_sort">
     @csrf
     <label for="search">検索：</label>
@@ -51,7 +52,10 @@
         @if($inventory->delete_flag == 0)
             <tr>
                 @if($inventory->image_url != "")
-                    <td><a href="{{ Storage::disk('s3')->url($inventory->image_url) }}">{{ $inventory->name }}</a></td>
+                    <td class="inventoryName">
+                        {{-- <a href="{{ Storage::disk('s3')->url($inventory->image_url) }}">{{ $inventory->name }}</a> --}}
+                        {{ $inventory->name }}
+                    </td>
                 @else
                     <td>{{ $inventory->name }}</td>
                 @endif
@@ -59,13 +63,22 @@
                 <td>{{ $inventory->category }}</td>
                 <td>{{ $inventory->stock }}個</td>
                 <td>{{ $inventory->purchase }}個/箱</td>
-                <td>¥{{ $inventory->unit_price }}</td>
+                <td>{{ $inventory->unit_price }}</td>
                 <td class="not">{{ $inventory->created_at }}</td>
                 <td class="not">{{ $inventory->updated_at }}</td>
                 <td><a href="inventory/{{ $inventory->id }}/edit">編集</a></td>
             </tr>
         @endif
+        <div class="inventoryImageArea show">
+            <div class="cancel"></div>
+            <img  class="inventoryImage" src="{{ Storage::disk('s3')->url($inventory->image_url) }}" alt="商品画像">
+        </div>
     @endforeach
+    {{--
+        <div class="inventoryImageArea">
+            <img  class="inventoryImage" src="{{ Storage::disk('s3')->url($inventory->image_url) }}" alt="商品画像">
+        </div>
+    --}}
 </table>
 <div class="pagenate-button">{{ $inventories->links() }}</div>
 @endsection

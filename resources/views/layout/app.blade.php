@@ -10,9 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    {{-- 個別のjavaScript読み込み --}}
-    @yield('javascript-head')
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -38,7 +36,9 @@
     @endcomponent
     --}}
     {{-- 個別のjavaScript読み込み --}}
-    @yield('javascript-footer')
-
+    {{-- @yield('javascript-footer') --}}
+    
+    {{-- 個別のjavaScript読み込み --}}
+    <script src="{{ asset('js/index.js') }}"></script>
 </body>
 </html>
