@@ -19,7 +19,6 @@
 
 let inventoryNames = document.querySelectorAll('.inventoryName');
 let inventoryImageArea = document.querySelectorAll('.inventoryImageArea');
-let inventoryNameSwitches = document.querySelectorAll('.inventoryNameSwitch');
 let overlay = document.querySelector('.overlay');
 
 for (let i = 0; i < inventoryNames.length; i++) {
