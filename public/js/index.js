@@ -19,12 +19,14 @@
 
 let inventoryNames = document.querySelectorAll('.inventoryName');
 let inventoryImageArea = document.querySelectorAll('.inventoryImageArea');
+let inventoryImage = document.querySelectorAll('.inventoryImage');
 let overlay = document.querySelector('.overlay');
 
 for (let i = 0; i < inventoryNames.length; i++) {
     inventoryNames[i].addEventListener('click', function() {
         if (inventoryImageArea[i].classList.contains('show')){
             inventoryImageArea[i].classList.remove('show');
+            inventoryImage[i].classList.remove('show');
             overlay.classList.add('fill');
             inventoryImageArea[i].animate(
             	{
@@ -52,6 +54,7 @@ for (let i = 0; i < inventoryNames.length; i++) {
             overlay.classList.remove('fill');
             setTimeout(function () {
                 inventoryImageArea[i].classList.add('show');
+                inventoryImage[i].classList.add('show');
             }, 501);
         }
     });
