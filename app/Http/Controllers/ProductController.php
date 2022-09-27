@@ -30,40 +30,36 @@ class ProductController extends Controller
         
         //検索機能
         if($request->search != null) {
-            
            $search = rtrim($request->search);
             if(is_int($request->search)) {
                 $search = (string)$search;
             }
             
+            //ソートあり
             if($request->sort != null) {
                 $slice = explode(" ", $request->sort);
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
                 
                 $inventories = Inventory::where('name', 'like', "%{$search}%")
-                            ->orwhere('expired_at', 'like', "%{$search}%")
                             ->orwhere('category', 'like', "%{$search}%")
-                            ->orwhere('stock', 'like', "%{$search}%")
-                            ->orwhere('purchase', 'like', "%{$search}%")
-                            ->orwhere('unit_price', "{$search}")->sortable($sort_query)->paginate(5);
+                            ->sortable($sort_query)->paginate(5);
+            //ソートなし
             } else {
                 $inventories = Inventory::where('name', 'like', "%{$search}%")
-                            ->orwhere('expired_at', 'like', "%{$search}%")
                             ->orwhere('category', 'like', "%{$search}%")
-                            ->orwhere('stock', 'like', "%{$search}%")
-                            ->orwhere('purchase', 'like', "%{$search}%")
-                            ->orwhere('unit_price', "{$search}")->paginate(5);
+                            ->paginate(5);
             }
             
         } elseif($request->search == null) {
-            
+            //ソートあり
             if($request->sort != null) {
                 $slice = explode(" ", $request->sort);
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
                 $inventories = Inventory::sortable($sort_query)->paginate(5);
                 $search = "";
+            //ソートなし
             } else {
                 $inventories = Inventory::paginate(5);
                 $search = "";
@@ -79,7 +75,7 @@ class ProductController extends Controller
             'unit_price desc' => '単価が高い順'
             ];
         
-        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted'));
+        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'sorted'));
     }
 
     /**

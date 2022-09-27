@@ -35,6 +35,7 @@
 @endif
 @if($sorted)
 <h3>”{{ $sort_values[$sorted] }}”</h3>
+{{ $sorted }}
 @endif
 <table border='1'>
     <tr>
@@ -80,5 +81,5 @@
         </div>
     --}}
 </table>
-<div class="pagenate-button">{{ $inventories->links() }}</div>
+<div class="pagenate-button">{{ $inventories->appends(['sort' => $sorted])->links() }}</div>
 @endsection
