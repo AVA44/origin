@@ -35,7 +35,6 @@
 @endif
 @if($sorted)
 <h3>”{{ $sort_values[$sorted] }}”</h3>
-{{ $sorted }}
 @endif
 <table border='1'>
     <tr>
