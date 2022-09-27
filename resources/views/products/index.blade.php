@@ -81,5 +81,5 @@
         </div>
     --}}
 </table>
-<div class="pagenate-button">{{ $inventories->appends(['sort' => $sorted])->links() }}</div>
+<div class="pagenate-button">{{ $inventories->appends(['sort' => $sorted, 'search' => $search])->links() }}</div>
 @endsection
