@@ -47,7 +47,6 @@ class ProductController extends Controller
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
                 
-                if($category)
                 $inventories = Inventory::where('category', 'like', "%{$category_search}%")
                             // ->orwhere('category', 'like', "%{$category_search}%")
                             ->sortable($sort_query)->paginate(5);
