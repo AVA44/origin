@@ -8,14 +8,14 @@
 <div class="overlay"></div>
 <form action="/inventory" class="search_sort">
     @csrf
-    <label for="search">検索：</label>
-    <input class="search" type="text" name="search" placeholder="商品名" value={{ $search }}>
+    {{-- <label for="search">検索：</label>
+    <input class="search" type="text" name="search" placeholder="商品名" value={{ $search }}> --}}
     
     <label for="category_search">ジャンル検索：</label>
-    <select class="category_search" name="search">
+    <select class="category_search" name="category_search">
         <option value="">未選択</option>
         @foreach($categories as $category)
-            @if($search == $category)
+            @if($category->category == $category_search)
                 <option value="{{ $category->category }}" selected>{{ $category->category }}</option>
             @else
                 <option value="{{ $category->category }}">{{ $category->category }}</option>
@@ -42,11 +42,14 @@
     <a href="inventory/create">商品を追加する</a>
 </div>
 
-@if($search)
+ {{-- @if($search)
 <h3>”{{ $search }}” の検索結果</h3>
-@endif
+@endif --}}
 @if($sorted)
 <h3>”{{ $sort_values[$sorted] }}”</h3>
+@endif
+@if($category_search)
+<h3>”{{ $category_search }}”の検索結果</h3>
 @endif
 <table border='1'>
     <tr>

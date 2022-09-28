@@ -28,13 +28,18 @@ class ProductController extends Controller
         
         $sorted = "";
         $search = "";
+        $category_search = "";
         
         //検索機能
-        if($request->search != null) {
-           $search = rtrim($request->search);
-            if(is_int($request->search)) {
-                $search = (string)$search;
-            }
+        if($request->search != null || $request->category_search != null) {
+            // if($request->search == null) {
+                $category_search = rtrim($request->category_search);
+            // } else {
+            //     $search = rtrim($request->search);
+            //     if(is_int($request->search)) {
+            //         $search = (string)$search;
+            //     }
+            // }
             
             //ソートあり
             if($request->sort != null) {
@@ -42,15 +47,18 @@ class ProductController extends Controller
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
                 
-                $inventories = Inventory::where('name', 'like', "%{$search}%")
+                if($category)
+                $inventories = Inventory::where('category', 'like', "%{$category_search}%")
+                            // ->orwhere('category', 'like', "%{$category_search}%")
                             ->sortable($sort_query)->paginate(5);
             //ソートなし
             } else {
-                $inventories = Inventory::where('name', 'like', "%{$search}%")
+                $inventories = Inventory::where('category', 'like', "%{$category_search}%")
+                            // ->orwhere('category', 'like', "%{$category_search}%")
                             ->paginate(5);
             }
             
-        } elseif($request->search == null) {
+        } elseif($request->search == null && $request->category_search == null) {
             //ソートあり
             if($request->sort != null) {
                 $slice = explode(" ", $request->sort);
@@ -74,7 +82,7 @@ class ProductController extends Controller
             'unit_price desc' => '単価が高い順'
             ];
         
-        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'sorted', 'categories', 'category_search'));
+        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'categories', 'category_search'));
     }
 
     /**
