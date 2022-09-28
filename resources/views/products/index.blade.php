@@ -9,11 +9,23 @@
 <form action="/inventory" class="search_sort">
     @csrf
     <label for="search">検索：</label>
-    <input class="search" type="text" name="search" value={{ $search }}>
+    <input class="search" type="text" name="search" placeholder="商品名" value={{ $search }}>
+    
+    <label for="category_search">ジャンル検索：</label>
+    <select class="category_search" name="search">
+        <option value="">未選択</option>
+        @foreach($categories as $category)
+            @if($search == $category)
+                <option value="{{ $category->category }}" selected>{{ $category->category }}</option>
+            @else
+                <option value="{{ $category->category }}">{{ $category->category }}</option>
+            @endif
+        @endforeach
+    </select>
     
     <lable for="sort">並び替え：</lable>
     <select class="sort" name="sort">
-        <option value=""></option>
+        <option value="">未選択</option>
         @foreach($sort_values as $sort_key => $sort_value)
             @if($sorted == $sort_key)
             <option value="{{ $sort_key }}" selected>{{ $sort_value }}</option>

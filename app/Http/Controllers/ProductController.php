@@ -24,6 +24,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $categories = Category::all();
         
         $sorted = "";
         $search = "";
@@ -42,12 +43,10 @@ class ProductController extends Controller
                 $sorted = $request->sort;
                 
                 $inventories = Inventory::where('name', 'like', "%{$search}%")
-                            ->orwhere('category', 'like', "%{$search}%")
                             ->sortable($sort_query)->paginate(5);
             //ソートなし
             } else {
                 $inventories = Inventory::where('name', 'like', "%{$search}%")
-                            ->orwhere('category', 'like', "%{$search}%")
                             ->paginate(5);
             }
             
@@ -75,7 +74,7 @@ class ProductController extends Controller
             'unit_price desc' => '単価が高い順'
             ];
         
-        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'sorted'));
+        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'sorted', 'categories', 'category_search'));
     }
 
     /**
