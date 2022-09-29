@@ -70,7 +70,6 @@
               let imagePreview = document.getElementById("product-image-preview");
               imagePreview.src = reader.result;
           }
-          console.log(image);
           reader.readAsDataURL(image[0]);
       }
  </script>
