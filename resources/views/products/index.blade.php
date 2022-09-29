@@ -15,11 +15,7 @@
     <select class="category_search" name="category_search">
         <option value="">未選択</option>
         @foreach($categories as $category)
-            @if($category->category == $category_search)
-                <option value="{{ $category->category }}" selected>{{ $category->category }}</option>
-            @else
                 <option value="{{ $category->category }}">{{ $category->category }}</option>
-            @endif
         @endforeach
     </select>
     
@@ -27,11 +23,7 @@
     <select class="sort" name="sort">
         <option value="">未選択</option>
         @foreach($sort_values as $sort_key => $sort_value)
-            @if($sorted == $sort_key)
-            <option value="{{ $sort_key }}" selected>{{ $sort_value }}</option>
-            @else
             <option value="{{ $sort_key }}">{{ $sort_value }}</option>
-            @endif
         @endforeach
     </select>
     
@@ -64,26 +56,24 @@
         <th>編集・削除</th>
     </tr>
     @foreach($inventories as $inventory)
-        @if($inventory->delete_flag == 0)
-            <tr>
-                @if($inventory->image_url != "")
-                    <td class="inventoryName">
-                        {{-- <a href="{{ Storage::disk('s3')->url($inventory->image_url) }}">{{ $inventory->name }}</a> --}}
-                        {{ $inventory->name }}
-                    </td>
-                @else
-                    <td>{{ $inventory->name }}</td>
-                @endif
-                <td>{{ $inventory->expired_at }}</td>
-                <td>{{ $inventory->category }}</td>
-                <td>{{ $inventory->stock }}個</td>
-                <td>{{ $inventory->purchase }}個/箱</td>
-                <td>{{ $inventory->unit_price }}</td>
-                <td class="not">{{ $inventory->created_at }}</td>
-                <td class="not">{{ $inventory->updated_at }}</td>
-                <td><a href="inventory/{{ $inventory->id }}/edit">編集</a></td>
-            </tr>
-        @endif
+        <tr>
+            @if($inventory->image_url != "")
+                <td class="inventoryName">
+                    {{-- <a href="{{ Storage::disk('s3')->url($inventory->image_url) }}">{{ $inventory->name }}</a> --}}
+                    {{ $inventory->name }}
+                </td>
+            @else
+                <td>{{ $inventory->name }}</td>
+            @endif
+            <td>{{ $inventory->expired_at }}</td>
+            <td>{{ $inventory->category }}</td>
+            <td>{{ $inventory->stock }}個</td>
+            <td>{{ $inventory->purchase }}個/箱</td>
+            <td>{{ $inventory->unit_price }}</td>
+            <td class="not">{{ $inventory->created_at }}</td>
+            <td class="not">{{ $inventory->updated_at }}</td>
+            <td><a href="inventory/{{ $inventory->id }}/edit">編集</a></td>
+        </tr>
         <div class="inventoryImageArea show">
             <div class="cancel"></div>
             <img  class="inventoryImage" src="{{ Storage::disk('s3')->url($inventory->image_url) }}" alt="商品画像">

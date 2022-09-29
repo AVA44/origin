@@ -47,12 +47,12 @@ class ProductController extends Controller
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
                 
-                $inventories = Inventory::where('category', 'like', "%{$category_search}%")
+                $inventories = Inventory::whereDelete_flag(0)->where('category', 'like', "%{$category_search}%")
                             // ->orwhere('category', 'like', "%{$category_search}%")
                             ->sortable($sort_query)->paginate(5);
             //ソートなし
             } else {
-                $inventories = Inventory::where('category', 'like', "%{$category_search}%")
+                $inventories = Inventory::whereDelete_flag(0)->where('category', 'like', "%{$category_search}%")
                             // ->orwhere('category', 'like', "%{$category_search}%")
                             ->paginate(5);
             }
@@ -63,11 +63,11 @@ class ProductController extends Controller
                 $slice = explode(" ", $request->sort);
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;
-                $inventories = Inventory::sortable($sort_query)->paginate(5);
+                $inventories = Inventory::whereDelete_flag(0)->sortable($sort_query)->paginate(5);
                 $search = "";
             //ソートなし
             } else {
-                $inventories = Inventory::paginate(5);
+                $inventories = Inventory::whereDelete_flag(0)->paginate(5);
                 $search = "";
             }
         }
