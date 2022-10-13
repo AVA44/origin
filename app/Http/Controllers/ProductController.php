@@ -59,7 +59,7 @@ class ProductController extends Controller
             
         } elseif($request->search == null && $request->category_search == null) {
             //ソートあり
-            if($request->sort != null) {
+            if($request->sort != "") {
                 $slice = explode(" ", $request->sort);
                 $sort_query[$slice[0]] = $slice[1];
                 $sorted = $request->sort;

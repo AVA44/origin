@@ -43,6 +43,16 @@ body {
     height: 2rem;
 }
 
+.edit > p {
+    font-size: 1.2rem;
+    color: #3490dc;
+    text-decoration: underline;
+}
+
+.edit > p:hover {
+    color: #2e6a9b;
+}
+
 .create > a {
     font-size: 1.2rem;
     text-decoration: underline;
@@ -66,7 +76,7 @@ th, td {
     color: black;
 }
 
-.inventoryImageArea {
+.inventoryImageArea, .category_add_delete {
     display: block;
     position: fixed;
     top: 26%;
@@ -79,8 +89,56 @@ th, td {
     background-color: #7b7b7a;
 }
 
-.inventoryImage {
-    display: block;
+.category_edit {
+    position: relative;
+    background-color: silver;
+    width: 100%;
+    height: 100%;
+}
+
+.category_select {
+    position: absolute;
+    top: 6rem;
+    left: 2rem;
+    width: 14rem;
+    height: 2rem;
+    margin-right: 12px;
+}
+
+.change_button {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 15.4rem;
+    left: 2rem;
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 8rem;
+    height: 3rem;
+}
+
+.change_button > p {
+    box-sizing: border-box;
+    padding: 0.7rem 1rem;
+    margin: 0;
+    width: 50%;
+    height: 100%;
+}
+
+.add_red, .des_red {
+    background-color: red;
+}
+
+.category_submit {
+    position: absolute;
+    top: 16rem;
+    left: 13rem;
+}
+
+.category_cancel {
+    position: absolute;
+    top: 16rem;
+    left: 17rem;
 }
 
 .show {
@@ -92,6 +150,7 @@ th, td {
 }
 
 .inventoryImage {
+    display: block;
     width: 100%;
     height: 100%;
 }

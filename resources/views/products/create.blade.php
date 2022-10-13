@@ -65,12 +65,12 @@
 
 <script type="text/javascript">
      function handleImage(image) {
-          let reader = new FileReader();
-          reader.onload = function() {
-              let imagePreview = document.getElementById("product-image-preview");
-              imagePreview.src = reader.result;
-          }
-          reader.readAsDataURL(image[0]);
+            let reader = new FileReader();
+            reader.onload = function() {
+                let imagePreview = document.getElementById("product-image-preview");
+                imagePreview.src = reader.result;
+            }
+            reader.readAsDataURL(image[0]);
       }
  </script>
 

@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Route::resource('inventory', 'ProductController');
 
+Route::resource('category', 'CategoryController');
+
+Route::delete('/category', 'CategoryController@delete')->name('category.delete');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

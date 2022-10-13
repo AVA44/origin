@@ -6,7 +6,57 @@
 @include('component.header', ['header_title' => 'index'])
 
 <div class="overlay"></div>
-<form action="/inventory" class="search_sort">
+
+<div class="category_add_delete show">
+    <form class="add_category category_edit" method="post" action="{{ url('category') }}" {{-- style="display:none;"--}}>
+        @csrf
+        <input class="category_select" type="text" name="category_name" placeholder="ジャンル名">
+        <br>
+         <div class="change_button">
+            <p class="add_red chan_btn">追加</p>
+            <p class="des chan_btn">削除</p>
+        </div>
+        <input class="category_submit" type="submit" value="追加">
+        <button class="category_cancel" type="button" onclick="cancel()">キャンセル</button>
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    </form>
+    <form class="des_category category_edit show" method="post" action="{{ url('category') }}" {{-- style="display:none;"--}}>
+        @csrf
+        <input type="hidden" name="_method" value="delete">
+        <select class="category_select" name="category_name">
+            <option value="">ジャンル名選択</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->category }}</option>
+            @endforeach
+        </select>
+        <br>
+        <div class="change_button">
+            <p class="add chan_btn">追加</p>
+            <p class="des_red chan_btn">削除</p>
+        </div>
+        <input class="category_submit" type="submit" value="削除">
+        <button class="category_cancel" type="button" onclick="cancel()">キャンセル</button>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </form>
+</div>
+
+<form class="search_sort" action="/inventory">
     @csrf
     {{-- <label for="search">検索：</label>
     <input class="search" type="text" name="search" placeholder="商品名" value={{ $search }}> --}}
@@ -29,6 +79,10 @@
     
     <input class="search_sort_button" type="submit" value ="表示">
 </form>
+
+<div class="edit">
+    <p>ジャンルの追加・削除</p>
+</div>
 
 <div class="create">
     <a href="inventory/create">商品を追加する</a>
