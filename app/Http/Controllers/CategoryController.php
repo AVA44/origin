@@ -40,7 +40,7 @@ class CategoryController extends Controller
             'category_name' => 'required'
             ],[
             'category_name.required' => 'ジャンル名を入力してください。'
-            ])->validate();
+            ]);
             
         $category = new Category();
         $category->category = $request->input('category_name');
@@ -103,7 +103,7 @@ class CategoryController extends Controller
             'category_name' => 'required'
             ],[
             'category_name.required' => 'ジャンル名を選択してください'
-            ])->validate();
+            ]);
         
         Category::destroy($request->input('category_name'));
         // Category::save();

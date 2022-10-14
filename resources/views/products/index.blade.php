@@ -18,15 +18,6 @@
         </div>
         <input class="category_submit" type="submit" value="追加">
         <button class="category_cancel" type="button" onclick="cancel()">キャンセル</button>
-        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
     </form>
     <form class="des_category category_edit show" method="post" action="{{ url('category') }}" {{-- style="display:none;"--}}>
         @csrf
@@ -44,15 +35,6 @@
         </div>
         <input class="category_submit" type="submit" value="削除">
         <button class="category_cancel" type="button" onclick="cancel()">キャンセル</button>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </form>
 </div>
 
@@ -82,6 +64,15 @@
 
 <div class="edit">
     <p>ジャンルの追加・削除</p>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </div>
 
 <div class="create">
