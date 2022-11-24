@@ -80,8 +80,11 @@ class ProductController extends Controller
             'unit_price asc' => '単価が安い順',
             'unit_price desc' => '単価が高い順'
             ];
+            
+        $limit = date('Y-m-d');
+        $date = date('Y-m-d', strtotime('$limit -45 day'));
         
-        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'categories', 'category_search'));
+        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'categories', 'category_search', 'date', 'limit'));
     }
 
     /**

@@ -92,9 +92,11 @@
     <tr>
         <th>商品名</th>
         <th>賞味期限</th>
+        <th>使用期限</th>
+        <th>残り日数</th>
         <th>ジャンル</th>
         <th>在庫</th>
-        <th>入荷時個数</th>
+        <th>一箱入数</th>
         <th>単価</th>
         <th>登録日</th>
         <th>最終編集日</th>
@@ -111,6 +113,17 @@
                 <td>{{ $inventory->name }}</td>
             @endif
             <td>{{ $inventory->expired_at }}</td>
+            @php
+                $date = date('Y-m-d');
+                $limit = date('Y-m-d', strtotime('-45 day', strtotime($inventory->expired_at)));
+                $toLimit = (strtotime($limit) - strtotime($date)) / 86400;
+            @endphp
+            <td>{{ $limit }}</td>
+            @if($toLimit <= 7)
+                <td style='color:red'>{{ $toLimit }}</td>
+            @else
+                <td>{{ $toLimit }}</td>
+            @endif
             <td>{{ $inventory->category }}</td>
             <td>{{ $inventory->stock }}個</td>
             <td>{{ $inventory->purchase }}個/箱</td>

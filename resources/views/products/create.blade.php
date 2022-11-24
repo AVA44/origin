@@ -16,6 +16,8 @@
 @endif
     
 <div class="create_container container">
+    <h4 class="create-warning">※画像以外必須</h4>
+    <br>
     <form method="post" action="/inventory" enctype="multipart/form-data">
         @csrf
         <div class="form-contents">
