@@ -17,7 +17,7 @@
 
 <h4>※変更点のみ記入</h4>
 <div class="edit_container container">
-    <form method="POST" action="{{ url('/inventory', $inventory->id) }}" enctype="multipart/form-data">
+    <form name="editForm" method="POST" action="{{ url('/inventory', $inventory->id) }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="PUT">
         <div class="form-contents">
@@ -56,9 +56,9 @@
             <div class="form-content edit-image">
                 <input id="image-url" type="file" name="image_url" onChange="handleImage(this.files)" style="display: none;">
                 @if($inventory->image_url != "")
-                <img class="edit-preview" src="{{ Storage::disk('s3')->url($inventory->image_url) }}">
+                    <img class="edit-preview" src="{{ Storage::disk('s3')->url($inventory->image_url) }} ">
                 @else
-                <p class="edit-preview n-image">画像無し</p>
+                    <p class="edit-preview n-image">画像無し</p>
                 @endif
                 <p>
                     ↑↑変更前↑↑
@@ -68,22 +68,22 @@
                 <img class="edit-preview" src="#" id="product-image-preview">
             </div>
         </div>
-        
-        <div class="edit-buttons">
-            <div class="edit-button button">
-                <input type="submit" value="編集">
-            </div>
-            
-            <form class="destroy-button button" method="post" action="{{ url('/inventory', $inventory->id) }}">
-                @csrf
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="submit" value="景品削除">
-                <div class="cancel-button button">
-                    <a href="/inventory">キャンセル</a>
-                </div>
-            </form>
-        </div>
     </form>
+    <form name="deleteForm" method="post" action="{{ url('/inventory', $inventory->id) }}">
+        @csrf
+        <input type="hidden" name="_method" value="DELETE">
+    </form>
+    <div class="edit-buttons">
+        <div class="edit-button button">
+            <input type="submit" value="編集" onClick="submitEditForm()">
+        </div>
+        <div class="delete-button button">
+            <input type="submit" value="削除" onClick="submitDeleteForm()">
+        </div>
+        <div class="cancel-button button">
+            <a href="/inventory">キャンセル</a>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -95,6 +95,14 @@
           }
           console.log(image);
           reader.readAsDataURL(image[0]);
+      }
+      
+      function submitEditForm() {
+          document.editForm.submit();
+      }
+      
+      function submitDeleteForm() {
+          document.deleteForm.submit();
       }
  </script>
 

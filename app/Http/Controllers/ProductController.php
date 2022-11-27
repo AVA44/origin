@@ -80,11 +80,8 @@ class ProductController extends Controller
             'unit_price asc' => '単価が安い順',
             'unit_price desc' => '単価が高い順'
             ];
-            
-        $limit = date('Y-m-d');
-        $date = date('Y-m-d', strtotime('$limit -45 day'));
         
-        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'categories', 'category_search', 'date', 'limit'));
+        return view('products.index', compact('inventories', 'search', 'sort_values', 'sorted', 'request', 'categories', 'category_search'));
     }
 
     /**
@@ -218,7 +215,7 @@ class ProductController extends Controller
         if ($request->file('image_url') !== null) {
             $inventory->image_url = Storage::disk('s3')->putFile('public/products', $request->file('image_url'), 'public');
         } else {
-            $inventory->image_url = '';
+            $inventory->image_url = $inventory->image_url;
         }
         
         $inventory->update();
